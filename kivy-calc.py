@@ -24,15 +24,14 @@ class MainApp(App):
             for label in row:
                 button = Button(
                     text=label,
-                    font_size=35,
+                    font_size=45,
                     pos_hint={"center_x": 0.5, "center_y": 0.5},
                 )
                 button.bind(on_press=self.on_button_press)
                 h_layout.add_widget(button)
             main_layout.add_widget(h_layout)
 
-        equals_button = Button(text="=", font_size=40, pos_hint={"center_x": 0.5, "center_y": 0.5}
-        )
+        equals_button = Button(text="=", font_size=50, pos_hint={"center_x": 0.5, "center_y": 0.5})
         equals_button.bind(on_press=self.on_solution)
         main_layout.add_widget(equals_button)
 
@@ -62,7 +61,12 @@ class MainApp(App):
     def on_solution(self, instance):
         text = self.solution.text
         if text:
-            solution = str(eval(self.solution.text))
+            try:
+                result = eval(self.solution.text)
+                solution = str(result)
+            except Exception as e:
+                solution = str(e)
+            
             self.solution.text = solution
 
 if __name__ == "__main__":
